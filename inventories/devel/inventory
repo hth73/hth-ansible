@@ -1,0 +1,51 @@
+# Settings for master
+[ansible_master]
+ansible ansible_host=192.168.178.50 ansible_connection=local
+
+# Variables for master
+[ansible_master:vars]
+ansible_python_interpreter=/usr/bin/python3
+ansible_ssh_common_args='-o StrictHostKeyChecking=no'
+ansible_user=ansible
+ansible_become=yes
+
+# Ansible Test Environment
+[ansible_hosts]
+debian ansible_host=192.168.178.60
+centos ansible_host=192.168.178.70
+suse ansible_host=192.168.178.80
+ubuntu ansible_host=192.168.178.90
+
+[debian_hosts]
+debian ansible_host=192.168.178.60
+
+[centos_hosts]
+centos ansible_host=192.168.178.70
+
+[suse_hosts]
+suse ansible_host=192.168.178.80
+
+[ubuntu_hosts]
+ubuntu ansible_host=192.168.178.90
+
+[ansible_hosts:vars]
+ansible_python_interpreter=/usr/bin/python3
+ansible_ssh_common_args='-o StrictHostKeyChecking=no'
+
+[debian_hosts:vars]
+ansible_user=ansible
+ansible_become=yes
+ansible_become_pass=ansible
+
+[centos_hosts:vars]
+ansible_user=ansible
+ansible_become=yes
+ansible_become_method=su
+ansible_become_pass=ansible
+
+[suse_hosts:vars]
+ansible_user=root
+
+[ubuntu_hosts:vars]
+ansible_user=ansible
+ansible_become=yes

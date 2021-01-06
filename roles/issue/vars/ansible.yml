@@ -1,0 +1,11 @@
+---
+package_name:
+  - python-apt
+  - figlet
+
+service_name: sshd
+
+location: Munich
+room: 'Server Room'
+name: admin@ansible
+issueremarks: 'This is the master Ansible server. Please be carefull!!'

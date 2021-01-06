@@ -1,0 +1,40 @@
+---
+- name: "Load specific Systems parameter"
+  include_vars: vars/{{ ansible_hostname }}.yml
+
+- name: "refresh apt cache"
+  apt:
+    update_cache: yes
+    cache_valid_time: 3600
+
+- name: "Install packages"
+  package:
+    name: "{{ package_name }}"
+
+- name: "set figlet name"
+  command: /usr/bin/figlet -c -w 80 -f small "{{ ansible_hostname }}"
+  changed_when: false
+  register: figlethost
+
+- name: "deploy /etc/issue file"
+  template:
+    src: issue.j2
+    dest: /etc/issue
+    owner: root
+    group: root
+    mode: '0444'
+
+- name: "deploy /etc/issue.net file"
+  template:
+    src: issue.j2
+    dest: /etc/issue.net
+    owner: root
+    group: root
+    mode: '0444'
+
+- name: "uncommenting a line in sshd_config"
+  replace:
+    path: /etc/ssh/sshd_config
+    regexp: '#Banner none'
+    replace: 'Banner /etc/issue.net'
+  notify: "restart {{ service_name }}"

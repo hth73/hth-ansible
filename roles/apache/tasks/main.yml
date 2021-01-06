@@ -1,0 +1,38 @@
+---
+- name: "Load specific Systems parameter"
+  include_vars: vars/{{ ansible_os_family }}.yml
+
+- name: "refresh apt cache"
+  apt:
+    update_cache: yes
+    cache_valid_time: 3600
+  when: ansible_os_family == "Debian"
+
+- name: "Install apache web server"
+  package:
+    name: "{{ apache_package_name }}" 
+
+- name: "start and enable apache services"
+  service:
+    name: "{{ apache_service_name }}"
+    state: started
+    enabled: yes
+
+- name: "create new startpage"
+  template:
+    src: index.html.j2
+    dest: "{{ apache_document_root }}/index.html"
+    mode: 0644
+
+- name: "load redirct config"
+  copy:
+    dest: "{{ apache_config_directory }}/redirect.conf"
+    content: |
+      Redirect /go http://www.google.de
+  notify: "reload apache webserver"
+
+- name: "acivate config"
+  command:
+    cmd: a2enconf redirect
+    creates: /etc/apache2/conf-enabled/redirect.conf
+  when: ansible_os_family == "Debian"

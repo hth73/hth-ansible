@@ -1,0 +1,5 @@
+---
+- hosts: ansible_master
+
+  roles:
+    - name: issue
