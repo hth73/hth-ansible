@@ -1,14 +1,3 @@
-# Settings for master
-[ansible_master]
-ansible ansible_host=192.168.178.50 ansible_connection=local
-
-# Variables for master
-[ansible_master:vars]
-ansible_python_interpreter=/usr/bin/python3
-ansible_ssh_common_args='-o StrictHostKeyChecking=no'
-ansible_user=ansible
-ansible_become=yes
-
 # Ansible Test Environment
 [ansible_hosts]
 debian ansible_host=192.168.178.60
