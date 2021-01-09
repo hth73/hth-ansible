@@ -141,7 +141,7 @@ vagrant up
 ```bash
 ## SSH Verbindung zu den vagrant Maschinen aufbauen
 cd ~/vagrant
-vagrant ssh (ansible/debian/centos/suse/ubuntu)
+vagrant ssh (debian/centos/suse/ubuntu)
 ```
 
 ##### Folgende Packete müssen in den einzelnen Maschinen installiert werden
@@ -268,33 +268,31 @@ ssh-copy-id -i ~/ansible-example/ssh_keys/ansible.pub root@suse -f
 ```bash
 vi ~/ansible-example/ansible.cfg
 
-## Komplette ansible.cfg Datei
-##
-# [defaults]
-# ## default number of parallel processes
-# forks = 10
+[defaults]
+## default number of parallel processes
+forks = 10
 
-# ## default location of the inventory file
-# inventory = ~/ansible-example/inventories/dev/inventory
+## default location of the inventory file
+inventory = ~/ansible-example/inventories/dev/inventory
 
-# ## Ansible Roles Path
-# roles_path = ~/ansible-example/roles
+## Ansible Roles Path
+roles_path = ~/ansible-example/roles
 
-# ## Ansible Default LogPath
-# log_path = ~/ansible-example/logs/ansible.log
+## Ansible Default LogPath
+log_path = ~/ansible-example/logs/ansible.log
 
-# ## Ansible Default Path for the SSH Keys
-# private_key_file = ~/ansible-example/ssh_keys/ansible
+## Ansible Default Path for the SSH Keys
+private_key_file = ~/ansible-example/ssh_keys/ansible
 
-# ## Ansible Retry File Log Path
-# retry_files_enabled = yes
-# retry_files_save_path = ~/ansible-example/retry_files
+## Ansible Retry File Log Path
+retry_files_enabled = yes
+retry_files_save_path = ~/ansible-example/retry_files
 
-# ## Facts Caching
-# gathering = smart
-# fact_caching = jsonfile
-# fact_caching_connection = ~/ansible-example/fact_cache
-# fact_caching_timeout = 86400
+## Facts Caching
+gathering = smart
+fact_caching = jsonfile
+fact_caching_connection = ~/ansible-example/fact_cache
+fact_caching_timeout = 86400
 
 ansible --version
 # ansible 2.9.6
@@ -329,12 +327,12 @@ fi
 ```bash
 cd ~/ansible-example
 
-ansible all --key-file ~/ansible-example/ssh_keys/ansible -i inventories/devel/inventory -m ping
+ansible all --key-file ~/ansible-example/ssh_keys/ansible -i inventories/dev/inventory -m ping
 
 ansible all -m ping
 ansible all -m gather_facts
 
-ansible 'all' -u ansible -m command -a "cat /home/ansible/.ssh/authorized_keys"
+ansible all -u ansible -m command -a "cat /home/ansible/.ssh/authorized_keys"
 ansible 'all:!suse' -u ansible -m command -a "cat /home/ansible/.ssh/authorized_keys" 
 ansible suse -u root -m command -a "cat /root/.ssh/authorized_keys" 
 
@@ -344,7 +342,7 @@ ansible all -m apt -a name=vim --become --ask-become-pass
 
 ## Da es unterschiedliche Distribution sind, verfügen nicht alle über den gleichen Paket Manager (apt), jedee Distribution muss unterschiedlich behandelt werden.
 ansible debian,ubuntu, -m apt -a upgrade=dist --become --ask-become-pass
-oder
+# oder
 ansible 'all:!suse:!centos' -m {{ansible_pkg_mgr}} -a upgrade=dist --become --ask-become-pass
 
 ansible centos -m yum -a "name=* state=latest update_cache=true" --become --ask-become-pass
