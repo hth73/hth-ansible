@@ -1,6 +1,6 @@
 ## Ansible/Vagrant Grundkonfiguration
 
-[[Home | README.md]]
+[[Home | README]]
 
 ---
 
