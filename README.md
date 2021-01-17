@@ -6,4 +6,4 @@
 Hier beschreibe ich einen Einstieg in Ansible und wie man es in seiner Umgebung nutzen kann. Da ich Hauptsächlich in einer Windows 10 Umgebung arbeite. Musste ich ein paar Umwege gehen um  Ansible sauber nutzen zu können.
 
 #### Navigation
-[Grundkonfiguration](docs/Grundkonfiguration.md)
+* [Ansible/Vagrant Grundkonfiguration](docs/Grundkonfiguration.md)
