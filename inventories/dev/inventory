@@ -1,9 +1,16 @@
-# Ansible Test Environment
+## Ansible Test Environment
+##
+[ansible_master]
+ansible ansible_host=192.168.178.50
+
 [ansible_hosts]
 debian ansible_host=192.168.178.60
 centos ansible_host=192.168.178.70
 suse ansible_host=192.168.178.80
 ubuntu ansible_host=192.168.178.90
+
+[ansible_hosts]
+ansible ansible_host=192.168.178.50
 
 [debian_hosts]
 debian ansible_host=192.168.178.60
@@ -17,9 +24,18 @@ suse ansible_host=192.168.178.80
 [ubuntu_hosts]
 ubuntu ansible_host=192.168.178.90
 
+[ansible_master:vars]
+ansible_python_interpreter=/usr/bin/python3
+ansible_ssh_common_args='-o StrictHostKeyChecking=no'
+
 [ansible_hosts:vars]
 ansible_python_interpreter=/usr/bin/python3
 ansible_ssh_common_args='-o StrictHostKeyChecking=no'
+
+[ansible_hosts:vars]
+ansible_user=ansible
+ansible_become=yes
+ansible_become_pass=ansible
 
 [debian_hosts:vars]
 ansible_user=ansible
@@ -38,3 +54,4 @@ ansible_user=root
 [ubuntu_hosts:vars]
 ansible_user=ansible
 ansible_become=yes
+ansible_become_pass=ansible

@@ -17,8 +17,5 @@ Vagrantfile
 
 # Exclude Folder     #
 ######################
-fact_cache/
-logs/
-retry_files/
-ssh_keys/
+.git/
 .vagrant/
