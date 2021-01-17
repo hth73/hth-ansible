@@ -115,3 +115,35 @@ ansible_user=ansible
 ansible_become=yes
 ```
 
+```bash
+ansible all -a "head -1 /etc/shadow"
+
+# debian | CHANGED | rc=0 >>
+# root:!:18559:0:99999:7:::
+# centos | CHANGED | rc=0 >>
+# root:$6$aCj9Ai2QdQ$ph7vus6TQTCmLfkTzcqWIC.1c21eOKvlsj.27Y4EvIdWxWbWtnU26GePLtUVkAbXuZambQQmP/gpGC.k0veLd0:18635:0:99999:7:::
+# suse | CHANGED | rc=0 >>
+# bin:!:18430::::::
+# ubuntu | CHANGED | rc=0 >>
+# root:!:18559:0:99999:7:::
+```
+
+##### Folgende Methoden werden auf den jeweiligen Betriebssystemen angewandt
+```bash
+======================================
+| Host   | Methode                   |
+======================================
+| debian | sudo                      |
+--------------------------------------
+| centos | su                        |
+--------------------------------------
+| suse   | direktes Root-SSH möglich |
+--------------------------------------
+| ubuntu | sudo (NOPASSWD)           |
+--------------------------------------
+
+# ansible_become = Der Hinweis das auf dem Zielsystem eine Rechteerhöhung stattfinden muss. Default ist "no"
+# ansible_become_method = Die dazu zu verwendende Methode. Default ist "sudo"
+# ansible_become_user = Wenn ein Benutzerwechsel stattfinden muss. Default ist "root"
+# ansible_become_pass = Das zur Rechteerhöhung benötigte Passwort.
+```
