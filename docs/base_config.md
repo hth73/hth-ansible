@@ -320,7 +320,7 @@ fi
 export ANSIBLE_CONFIG=~/ansible-example/ansible.cfg
 
 ## working directory
-if [ -d ~/ansible-exampel ] ; then
+if [ -d ~/ansible-example ] ; then
    cd ~/ansible-example
 else
    cd ~
