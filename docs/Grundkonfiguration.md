@@ -7,8 +7,8 @@
 ### Testumgebung in Windows 10 vorbereiten
 * Arbeite mit Windows 10, Cygwin (Vagrant) und einem Raspberry Pi als Ansible Contol Host.
 * Vagrant wurde unter Windows 10 in das Verzeichnis C:\DevEnv\Vagrant installiert.
-* VirtualBox ist ebenfalls unter Windows installiert.
-* In Cygwin wurden die Pfade angepasst, damit über Vagrant Maschinen installiert werden können.
+* VirtualBox ist ebenfalls installiert.
+* In Cygwin wurden die Pfade angepasst, damit über Vagrant Linux Maschinen in VirtualBox installiert werden können.
 
 ##### Cygwin anpassen für Vagrant
 ```bash
@@ -136,7 +136,7 @@ end
 ```
 ##### Linux Maschinen über Vagrant installieren lassen
 ```bash
-## Dauer beim ersten mal Ausführen ca. ~ 10 Minuten
+## Dauer bei der erstsmaligen Ausführen ca. ~ 10 Minuten
 cd ~/vagrant
 vagrant up
 ```
@@ -148,7 +148,7 @@ cd ~/vagrant
 vagrant ssh (debian/centos/suse/ubuntu)
 ```
 
-##### Folgende Packete müssen in den einzelnen Maschinen installiert werden
+##### Folgende Packete müssen in den einzelnen Maschinen per Hand installiert werden
 ```bash
 ## Ansible auf Debian installieren
 ##
@@ -185,10 +185,11 @@ sudo /usr/sbin/useradd -s /bin/bash -m -d /home/ansible -c "ansible" ansible
 sudo passwd ansible
 sudo /usr/sbin/usermod -a -G sudo ansible
 
-## Benutzer auf der Console wechseln
+## Benutzer wechseln
 su - ansible
 
-## Ordnerstruktur für den Ansible Control Host anlegen
+## Ordnerstruktur für den Ansible Control Host anlegen bzw. 
+## über "git clone https://github.com/hth73/ansible-example.git" einrichten
 mkdir ~/ansible-examlpe && cd $_
 mkdir -p inventories/dev/{host,group}_vars fact_cache logs playbooks/{templates,vars} retry_files roles ssh_keys
 
