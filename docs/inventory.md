@@ -27,7 +27,9 @@ ubuntu
 [test_hosts:vars]
 ansible_python_interpreter=/usr/bin/python3 
 ansible_ssh_common_args='-o StrictHostKeyChecking=no'
+```
 
+```bash
 ansible all -m ping
 
 # debian | SUCCESS => {
